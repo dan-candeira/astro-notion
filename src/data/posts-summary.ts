@@ -1,11 +1,9 @@
+// code by Daniel Schulz - https://iamschulz.com/from-notion-to-eleventy/
 import { Client } from "@notionhq/client";
-import { NotionToMarkdown } from "notion-to-md";
-import { marked } from "marked";
 
-export const getPosts = async () => {
+export const getPostsSummary = async () => {
 	// connects to notion API
 	const notion = new Client({ auth: import.meta.env.NOTION_KEY });
-	const n2m = new NotionToMarkdown({ notionClient: notion });
 
 	const databaseId = import.meta.env.NOTION_BLOG_ID;
 	const db = await notion.databases.query({
@@ -22,15 +20,9 @@ export const getPosts = async () => {
 		],
 	});
 
-	const getContent = async (id: any) => {
-		const mdblocks = await n2m.pageToMarkdown(id);
-		return n2m.toMarkdownString(mdblocks);
-	};
-
 	const posts = db.results.map(result => ({
 		id: result.id,
 		title: (result as any).properties["Title"].title.pop().plain_text,
-		content: "",
 		cover:
 			(result as any).cover?.file?.url ||
 			(result as any).cover?.external?.url,
@@ -38,12 +30,8 @@ export const getPosts = async () => {
 			(result as any).properties["Cover Alt"]?.rich_text.pop()
 				?.plain_text || "",
 		date: (result as any).properties["Date"]?.date.start,
+		summary: (result as any).properties["Date"]?.date.start,
 	}));
-
-	for (let i = 0; i < posts.length; i++) {
-		const _mdContent = await getContent(posts[i].id);
-		posts[i].content = marked(_mdContent);
-	}
 
 	return posts;
 };

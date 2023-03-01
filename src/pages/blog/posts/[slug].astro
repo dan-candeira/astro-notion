@@ -1,0 +1,20 @@
+---
+import { getPosts } from "../../../data/posts";
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	return posts.map(({ id, title, content, date, cover, coverAlt }) => ({
+		params: { slug: id },
+		props: { title, content, date, cover, coverAlt },
+	}));
+}
+
+const { title, content, date, cover, coverAlt } = Astro.props;
+---
+
+{cover ? <img src={cover} alt={coverAlt} width="500" height="500" /> : null}
+
+<h1>{title}</h1>
+
+<time datetime={date}>{date}</time>
+
+<Fragment set:html={content} />
