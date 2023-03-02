@@ -1,17 +1,21 @@
 ---
 import { getPostsSummary } from "../data/posts-summary";
+import Layout from "../layouts/Layout.astro";
 const posts = await getPostsSummary();
+const title = `Hello World - Astro`;
 ---
 
-<main>
-	{
-		posts.map((post: any) => (
-			<article>
-				<h2>
-					<a href={`blog/posts/${post.id}`}>{post.title}</a>
-				</h2>
-				<div />
-			</article>
-		))
-	}
-</main>
+<Layout title={title}>
+	<main>
+		{
+			posts.map((post: any) => (
+				<article>
+					<h2>
+						<a href={`blog/posts/${post.id}`}>{post.title}</a>
+					</h2>
+					<div />
+				</article>
+			))
+		}
+	</main>
+</Layout>

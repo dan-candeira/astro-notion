@@ -8,6 +8,10 @@ npm create astro@latest -- --template basics
 
 Comming soon...
 
+## Notion database structure
+
+![Notion database with the columns "Title", "Draft", "Date", "Cover Alt" and "Summary" ](https://stackblitz.com/edit/web-platform-yrreuz?file=Screenshot%202023-03-02%20160017.png "Notion database - table view")
+
 ## 🚀 Project Structure
 
 Inside of your Astro project, you'll see the following folders and files:

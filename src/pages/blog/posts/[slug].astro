@@ -1,4 +1,6 @@
 ---
+import Layout from "../../../layouts/Layout.astro";
+
 import { getPosts } from "../../../data/posts";
 export async function getStaticPaths() {
 	const posts = await getPosts();
@@ -11,10 +13,14 @@ export async function getStaticPaths() {
 const { title, content, date, cover, coverAlt } = Astro.props;
 ---
 
-{cover ? <img src={cover} alt={coverAlt} width="500" height="500" /> : null}
+<Layout title={title}>
+	{cover ? <img src={cover} alt={coverAlt} width="500" height="500" /> : null}
 
-<h1>{title}</h1>
+	<h1>{title}</h1>
 
-<time datetime={date}>{date}</time>
+	<time datetime={date}>{date}</time>
 
-<Fragment set:html={content} />
+	<Fragment set:html={content} />
+
+	<script src="/prism.js" is:inline></script>
+</Layout>
