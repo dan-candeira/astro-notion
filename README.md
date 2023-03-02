@@ -1,4 +1,4 @@
-# Astro Starter Notion API: Basics
+# Astro Starter Notion API
 
 ```
 npm create astro@latest -- --template basics
