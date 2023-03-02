@@ -10,7 +10,7 @@ Comming soon...
 
 ## Notion database structure
 
-![Notion database with the columns Title, Draft, Date, Cover Alt and Summary](https://stackblitz.com/edit/web-platform-yrreuz?file=Screenshot%202023-03-02%20160017.png "Notion database - table view")
+<img src="https://stackblitz.com/edit/web-platform-yrreuz?file=Screenshot%202023-03-02%20160017.png" alt="Notion database with the columns Title, Draft, Date, Cover Alt and Summary" style="width:100%;"/>
 
 ## 🚀 Project Structure
 
