@@ -22,22 +22,19 @@ export const getPosts = async () => {
 		],
 	});
 
-	const getContent = async (id: any) => {
+	const getContent = async id => {
 		const mdblocks = await n2m.pageToMarkdown(id);
 		return n2m.toMarkdownString(mdblocks);
 	};
 
 	const posts = db.results.map(result => ({
 		id: result.id,
-		title: (result as any).properties["Title"].title.pop().plain_text,
+		title: result.properties["Title"].title.pop().plain_text,
 		content: "",
-		cover:
-			(result as any).cover?.file?.url ||
-			(result as any).cover?.external?.url,
+		cover: result.cover?.file?.url || result.cover?.external?.url,
 		coverAlt:
-			(result as any).properties["Cover Alt"]?.rich_text.pop()
-				?.plain_text || "",
-		date: (result as any).properties["Date"]?.date.start,
+			result.properties["Cover Alt"]?.rich_text.pop()?.plain_text || "",
+		date: result.properties["Date"]?.date.start,
 	}));
 
 	for (let i = 0; i < posts.length; i++) {

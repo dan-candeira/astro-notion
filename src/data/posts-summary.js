@@ -22,15 +22,12 @@ export const getPostsSummary = async () => {
 
 	const posts = db.results.map(result => ({
 		id: result.id,
-		title: (result as any).properties["Title"].title.pop().plain_text,
-		cover:
-			(result as any).cover?.file?.url ||
-			(result as any).cover?.external?.url,
+		title: result.properties["Title"].title.pop().plain_text,
+		cover: result.cover?.file?.url || result.cover?.external?.url,
 		coverAlt:
-			(result as any).properties["Cover Alt"]?.rich_text.pop()
-				?.plain_text || "",
-		date: (result as any).properties["Date"]?.date.start,
-		summary: (result as any).properties["Date"]?.date.start,
+			result.properties["Cover Alt"]?.rich_text.pop()?.plain_text || "",
+		date: result.properties["Date"]?.date.start,
+		summary: result.properties["Date"]?.date.start,
 	}));
 
 	return posts;
