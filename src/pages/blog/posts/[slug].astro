@@ -1,5 +1,5 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
+import BlogLayout from "../../../layouts/BlogLayout.astro";
 
 import { getPosts } from "../../../data/posts";
 export async function getStaticPaths() {
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { title, content, date, cover, coverAlt } = Astro.props;
 ---
 
-<Layout title={title}>
+<BlogLayout title={title}>
 	{cover ? <img src={cover} alt={coverAlt} width="500" height="500" /> : null}
 
 	<h1>{title}</h1>
@@ -21,6 +21,4 @@ const { title, content, date, cover, coverAlt } = Astro.props;
 	<time datetime={date}>{date}</time>
 
 	<Fragment set:html={content} />
-
-	<script src="/prism.js" is:inline></script>
-</Layout>
+</BlogLayout>
