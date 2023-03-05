@@ -1,5 +1,6 @@
 // code by Daniel Schulz - https://iamschulz.com/from-notion-to-eleventy/
 import { Client } from "@notionhq/client";
+import slugify from "slugify";
 
 export const getPostsSummary = async () => {
 	// connects to notion API
@@ -27,8 +28,18 @@ export const getPostsSummary = async () => {
 		coverAlt:
 			result.properties["Cover Alt"]?.rich_text.pop()?.plain_text || "",
 		date: result.properties["Date"]?.date.start,
-		summary: result.properties["Date"]?.date.start,
+		summary:
+			result.properties["summary"]?.rich_text.pop()?.plain_text || "",
+		slug: "",
 	}));
+
+	for (let i = 0; i < posts.length; i++) {
+		const _page = posts[i];
+		_page.slug = slugify(_page.title, {
+			lower: true,
+			remove: /[*+~.()'"!:@]/g,
+		});
+	}
 
 	return posts;
 };

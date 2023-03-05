@@ -1,24 +1,48 @@
 ---
-import BlogLayout from "../../../layouts/BlogLayout.astro";
+import Base from "@layouts/Base.astro";
 
-import { getPosts } from "../../../data/posts";
+import { getPosts } from "@data/posts";
 export async function getStaticPaths() {
 	const posts = await getPosts();
-	return posts.map(({ id, title, content, date, cover, coverAlt }) => ({
-		params: { slug: id },
-		props: { title, content, date, cover, coverAlt },
-	}));
+	return posts.map(
+		({
+			title,
+			content,
+			summary,
+			date,
+			cover,
+			coverAlt,
+			socialImage,
+			slug,
+		}) => ({
+			params: { slug },
+			props: {
+				meta: {
+					title,
+					socialImage,
+					summary,
+					currentUrl: "",
+				},
+				title,
+				content,
+				date,
+				cover,
+				coverAlt,
+			},
+		})
+	);
 }
 
-const { title, content, date, cover, coverAlt } = Astro.props;
+const { title, content, date, cover, coverAlt, meta } = Astro.props;
+// console.log(socialImage);
 ---
 
-<BlogLayout title={title}>
-	{cover ? <img src={cover} alt={coverAlt} width="500" height="500" /> : null}
+<Base metaInfo={meta}>
+	{cover && <img src={cover} alt={coverAlt} width="500" height="500" />}
 
 	<h1>{title}</h1>
 
 	<time datetime={date}>{date}</time>
 
 	<Fragment set:html={content} />
-</BlogLayout>
+</Base>

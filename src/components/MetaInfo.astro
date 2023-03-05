@@ -1,0 +1,38 @@
+---
+import { MetaInfo } from "src/types/meta-info";
+
+export interface Props {
+	meta: MetaInfo;
+}
+
+const {meta} = Astro.props;
+---
+
+<title>{ meta.title }</title>
+<link rel="canonical" href={ meta.currentUrl }>
+
+<meta property="og:site_name" content={ meta.title }/>
+<meta property="og:title" content={ meta.title }/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content={ meta.currentUrl }/>
+
+<!-- TODO: Fix site.name -->
+
+{ meta.socialImage && 
+    (
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta property="og:image" content={ meta.socialImage }/>
+        <meta name="twitter:image" content={ meta.socialImage }/>
+       
+        <meta property="og:image:alt" content={`Page image for site.name`}/>
+        <meta name="twitter:image:alt" content="Page image for {{ site.name }}"/>
+    )
+}
+
+{ meta.summary && 
+    (
+        <meta name="description" content={ meta.summary }/>
+        <meta name="twitter:description" content={ meta.summary }/>
+        <meta property="og:description" content={ meta.summary }/>
+    )
+}

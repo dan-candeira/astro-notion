@@ -1,0 +1,30 @@
+---
+import Meta from "@components/MetaInfo.astro";
+import { MetaInfo } from "@custom-types/meta-info";
+
+export interface Props {
+	metaInfo: MetaInfo;
+}
+
+const { metaInfo } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<Meta meta={metaInfo} />
+
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="/css/global.css" />
+		<link href="/prism.css" rel="stylesheet" />
+
+		<title>{metaInfo.title}</title>
+	</head>
+	<body>
+		<slot />
+		<script src="/prism.js" is:inline></script>
+	</body>
+</html>
